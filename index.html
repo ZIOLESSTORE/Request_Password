@@ -8,8 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f1724; --card:#0b1220; --accent:#10b981; --muted:#9aa7b6;
-      --glass: rgba(255,255,255,0.03);
+      --bg:#0f1724; --card:#0b1220; --accent:#10b981; --muted:#9aa7b6; --glass: rgba(255,255,255,0.03);
     }
     *{box-sizing:border-box}
     body{
@@ -21,22 +20,16 @@
       padding:32px;
     }
     .container{
-      width:100%; max-width:920px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      width:100%; max-width:960px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border-radius:16px; padding:28px; box-shadow:0 10px 40px rgba(2,6,23,0.6); display:grid; gap:20px;
-      grid-template-columns: 1fr 420px;
-      align-items:center;
-      backdrop-filter: blur(6px);
+      grid-template-columns: 1fr 380px; align-items:start; backdrop-filter: blur(6px);
     }
-    .hero{
-      padding:18px 16px;
-    }
+    .hero{ padding:6px 4px; }
     h1{margin:0 0 6px 0; font-size:22px; font-weight:700}
     p.lead{margin:0 0 18px 0; color:var(--muted)}
-    .card{
-      background:var(--card); border-radius:12px; padding:18px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.02);
-    }
 
-    /* Form */
+    .card{ background:var(--card); border-radius:12px; padding:18px; box-shadow:inset 0 1px 0 rgba(255,255,255,0.02); }
+
     .form-row{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
     label{font-size:13px; color:var(--muted)}
     input[type="password"], input[type="text"], textarea{
@@ -46,31 +39,16 @@
     }
     input:focus, textarea:focus { box-shadow:0 6px 20px rgba(2,6,23,0.6); transform:translateY(-1px) }
 
-    .btn{
-      display:inline-block; padding:12px 20px; border-radius:12px; cursor:pointer; font-weight:600;
-      border: none; font-size:15px;
-    }
+    .btn{ display:inline-block; padding:12px 20px; border-radius:12px; cursor:pointer; font-weight:600; border:none; font-size:15px; }
     .btn-primary{ background:transparent; color:var(--accent); border:1px solid rgba(16,185,129,0.12) }
-    .btn-green{
-      background: linear-gradient(90deg, rgba(16,185,129,1), rgba(16,185,129,0.9));
-      color:#042017; box-shadow: 0 10px 30px rgba(16,185,129,0.12);
-      width:100%; font-size:18px; padding:16px; border-radius:14px;
-    }
+    .btn-green{ background: linear-gradient(90deg, rgba(16,185,129,1), rgba(16,185,129,0.9)); color:#042017; box-shadow: 0 10px 30px rgba(16,185,129,0.12); width:100%; font-size:18px; padding:16px; border-radius:14px; }
 
     .hidden{ display:none }
     .small{ font-size:13px; color:var(--muted) }
     .status{ padding:10px 12px; border-radius:10px; font-size:14px }
 
-    /* Right side preview */
-    .preview{
-      display:flex; flex-direction:column; gap:12px;
-      align-items:stretch; justify-content:center;
-    }
-    .message-preview{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      padding:14px; border-radius:12px; min-height:120px; color:var(--muted);
-      font-family:monospace; font-size:14px; white-space:pre-wrap;
-    }
+    .preview{ display:flex; flex-direction:column; gap:12px; align-items:stretch; justify-content:flex-start; }
+    .message-preview{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:14px; border-radius:12px; min-height:120px; color:var(--muted); font-family:monospace; font-size:14px; white-space:pre-wrap; }
 
     footer.note{ grid-column:1/-1; text-align:center; color:var(--muted); font-size:13px; margin-top:6px }
 
@@ -97,7 +75,7 @@
         <div id="pwMsg" style="margin-top:12px"></div>
       </div>
 
-      <div id="step2" class="card hidden">
+      <div id="step2" class="card hidden" aria-hidden="true">
         <div class="form-row">
           <label for="requestInput">Isi Password Request (8–50 karakter)</label>
           <input id="requestInput" type="text" placeholder="Contoh: newpass123..." maxlength="50" />
@@ -123,8 +101,8 @@ Password request : </div>
         <h3 style="margin:0 0 8px 0">Petunjuk Cepat</h3>
         <ul style="margin:0 0 0 18px;color:var(--muted)">
           <li>Ubah password valid di <code>config.js</code>.</li>
-          <li>Ganti <code>BOT_TOKEN</code> & <code>CHAT_ID</code> di <code>config.js</code> (atau gunakan serverless).</li>
-          <li>Teks yang dikirim akan tampil seperti preview. Panjang 8–50 karakter.</li>
+          <li>Jangan commit <code>TELEGRAM_BOT_TOKEN</code> jika repo publik.</li>
+          <li>Gunakan serverless endpoint untuk keamanan (rekomendasi).</li>
         </ul>
       </div>
 
@@ -139,36 +117,37 @@ Password request : contohpassword</div>
     <footer class="note">Siap dipasang di <strong>GitHub Pages</strong>. Jangan letakkan token bot di repo publik — gunakan serverless jika memungkinkan.</footer>
   </div>
 
-  <!-- config.js harus dibuat di repo -->
+  <!-- config.js harus dibuat di repo (lihat file config.js) -->
   <script src="config.js"></script>
 
   <script>
-    /* ======= LOGIC (bisa ubah password di config.js) =======
+    /* ======= LOGIC DENGAN PERBAIKAN =======
        config.js harus mendefinisikan:
        window.APP_CONFIG = {
          PASSWORD: "your-password-here",
          TELEGRAM_BOT_TOKEN: "BOT_TOKEN_HERE",
          TELEGRAM_CHAT_ID: "CHAT_ID_HERE",
-         USE_SERVERLESS_ENDPOINT: false, // jika true, gunakan SEND_ENDPOINT
-         SEND_ENDPOINT: "https://your-serverless.example/send" // optional
+         USE_SERVERLESS_ENDPOINT: false,
+         SEND_ENDPOINT: ""
        }
     */
     (function(){
+      // default config jika belum ada file config.js
       if(!window.APP_CONFIG){
         window.APP_CONFIG = {
-          PASSWORD:"IYA DEH",
+          PASSWORD: "changeme123",
           TELEGRAM_BOT_TOKEN: "8445439670:AAEc5HGL7VjYYJLTpAnjsVp9eOjEPpg1Pp0",
           TELEGRAM_CHAT_ID: "7799140879",
           USE_SERVERLESS_ENDPOINT: false,
-          SEND_ENDPOINT: "" // jika pakai serverless, isi endpoint
+          SEND_ENDPOINT: ""
         };
-        console.warn("APP_CONFIG tidak ditemukan — menggunakan default. Buat file config.js untuk konfigurasi nyata.");
+        console.warn("APP_CONFIG tidak ditemukan — menggunakan default. Tambahkan file config.js untuk konfigurasi nyata.");
       }
 
+      // elemen UI
       const pwInput = document.getElementById('pwInput');
       const pwCheckBtn = document.getElementById('pwCheckBtn');
       const pwMsg = document.getElementById('pwMsg');
-      const step1 = document.getElementById('step1');
       const step2 = document.getElementById('step2');
       const requestInput = document.getElementById('requestInput');
       const preview = document.getElementById('preview');
@@ -176,85 +155,113 @@ Password request : contohpassword</div>
       const sendBtn = document.getElementById('sendBtn');
       const sendStatus = document.getElementById('sendStatus');
 
+      // status verifikasi — hanya ini yang menentukan boleh kirim atau tidak
+      let isVerified = false;
+
       function setMsg(el, text, ok=false){
         el.innerHTML = '<div class="status" style="background:'+ (ok? 'rgba(16,185,129,0.08)':'rgba(255,69,58,0.06)') +
                        '; color:'+(ok? 'var(--accent)':'#ffb3aa')+'; border:1px solid rgba(255,255,255,0.02)">'+text+'</div>';
       }
 
+      // saat tombol cek password
       pwCheckBtn.addEventListener('click', ()=>{
         const v = (pwInput.value||'').trim();
-        if(!v){ setMsg(pwMsg, 'Masukkan password terlebih dahulu.'); return; }
-        // validasi sederhana: cocok dengan config
-        if(v === (window.APP_CONFIG.PASSWORD||'')){
-          setMsg(pwMsg, 'Password benar — silakan isi permintaan di form kedua.', true);
+        if(!v){
+          setMsg(pwMsg, 'Masukkan password terlebih dahulu.');
+          return;
+        }
+
+        // bandingkan dengan PASSWORD di config
+        if(v === (window.APP_CONFIG.PASSWORD || '')){
+          setMsg(pwMsg, 'Password benar — Anda bisa melanjutkan.', true);
+          isVerified = true;
+          // tampilkan step2 dengan atribut aksesibilitas
           step2.classList.remove('hidden');
-          pwInput.value = ''; // clear for security
+          step2.setAttribute('aria-hidden', 'false');
+          // Kosongkan input password untuk keamanan
+          pwInput.value = '';
         } else {
-          setMsg(pwMsg, 'Password salah. Cek kembali.', false);
+          setMsg(pwMsg, 'Password salah. Coba lagi.', false);
+          isVerified = false;
+          // sembunyikan step2 jika ada
+          step2.classList.add('hidden');
+          step2.setAttribute('aria-hidden', 'true');
         }
       });
 
+      // refresh preview dan tombol
       function refreshPreview(){
         const val = (requestInput.value||'').trim();
         preview.textContent = 'Format Ganti Password Wifi\n\nPassword request : ' + val;
         example.textContent = 'Format Ganti Password Wifi\n\nPassword request : contohpassword';
-        // enable send button jika valid
-        if(val.length >= 8 && val.length <= 50){
+        if(val.length >= 8 && val.length <= 50 && isVerified){
           sendBtn.disabled = false;
         } else {
           sendBtn.disabled = true;
         }
       }
-
       requestInput.addEventListener('input', refreshPreview);
 
+      // function untuk kirim (akan menolak jika belum verified)
       async function sendToTelegram(text){
-        // dua opsi: langsung panggil Telegram API (TIDAK AMAN jika token di-repo publik),
-        // atau panggil endpoint serverless yang menyimpan token di environment variable.
+        if(!isVerified) throw new Error('Belum terverifikasi: masukkan password yang benar terlebih dahulu.');
+
         if(window.APP_CONFIG.USE_SERVERLESS_ENDPOINT && window.APP_CONFIG.SEND_ENDPOINT){
-          // kirim POST ke serverless endpoint (direkomendasikan)
+          // rekomendasi: pakai serverless
           const resp = await fetch(window.APP_CONFIG.SEND_ENDPOINT, {
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text })
           });
-          if(!resp.ok) throw new Error('Serverless request gagal: ' + resp.status);
+          if(!resp.ok){
+            const txt = await resp.text().catch(()=>'');
+            throw new Error('Serverless request gagal: ' + resp.status + ' ' + txt);
+          }
           return await resp.json();
         } else {
-          // direct Telegram API (ingat: token akan terlihat jika di-publish)
+          // direct Telegram API (TIDAK AMAN untuk repo publik)
           const token = window.APP_CONFIG.TELEGRAM_BOT_TOKEN;
           const chatId = window.APP_CONFIG.TELEGRAM_CHAT_ID;
           if(!token || !chatId) throw new Error('Bot token / chat id belum diatur di config.js');
           const url = `https://api.telegram.org/bot${encodeURIComponent(token)}/sendMessage`;
-          const params = {
-            chat_id: chatId,
-            text: text,
-            parse_mode: "HTML"
-          };
-          const form = new URLSearchParams(params);
-          const resp = await fetch(url, { method:'POST', body: form });
+          const params = new URLSearchParams({ chat_id: chatId, text: text, parse_mode: "HTML" });
+          const resp = await fetch(url, { method: 'POST', body: params });
           const data = await resp.json();
           if(!data.ok) throw new Error('Telegram API error: ' + (data.description || JSON.stringify(data)));
           return data;
         }
       }
 
+      // event kirim
       sendBtn.addEventListener('click', async ()=>{
+        // cek verifikasi lagi di UI level
+        if(!isVerified){
+          setMsg(sendStatus, 'Anda belum memasukkan password yang benar.', false);
+          sendBtn.disabled = true;
+          return;
+        }
+
         const val = (requestInput.value||'').trim();
         if(val.length < 8 || val.length > 50){
           setMsg(sendStatus, 'Panjang teks harus 8–50 karakter.');
           return;
         }
+
         sendBtn.disabled = true;
-        setMsg(sendStatus, 'Mengirim... Mohon tunggu.');
+        setMsg(sendStatus, 'Mengirim...');
+
         const msg = `Format Ganti Password Wifi\n\nPassword request : ${val}`;
+
         try{
           await sendToTelegram(msg);
           setMsg(sendStatus, 'Terkirim! Cek Telegram Anda.', true);
-          // reset form
+          // reset form & verifikasi (opsional: logout)
           requestInput.value = '';
+          isVerified = false; // optional: agar harus verifikasi ulang jika ingin submit lagi
+          step2.classList.add('hidden');
+          step2.setAttribute('aria-hidden', 'true');
           refreshPreview();
-        }catch(err){
+        } catch(err){
           console.error(err);
           setMsg(sendStatus, 'Gagal mengirim: ' + (err.message || err), false);
         } finally {
@@ -262,7 +269,7 @@ Password request : contohpassword</div>
         }
       });
 
-      // initial
+      // inisialisasi preview
       refreshPreview();
 
     })();
